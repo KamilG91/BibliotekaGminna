@@ -1,0 +1,4 @@
+Tolkien John Ronald Reuel;The Hobbit, or There and Back Again;10.0;320;5.2;4.5;
+Tolkien John Ronald Reuel;Upadek Gondolinu;12.0;280;6.0;4.0;
+Tolkien John Ronald Reuel;The Lord of the Rings;20.0;1280;13.0;10.0;
+Kochanowski;Treny;20.0;1000;40.0;30.0;

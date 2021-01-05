@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controllers.MainPageController">
+   <children>
+      <TabPane prefHeight="330.0" prefWidth="776.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Podsumowanie">
+                <HBox>
+                  <children>
+                     <Pane prefHeight="301.0" prefWidth="450.0">
+                        <children>
+                           <VBox layoutY="-1.0" prefHeight="302.0" prefWidth="454.0">
+                              <children>
+                                 <Pane prefHeight="150.0" prefWidth="454.0">
+                                    <children>
+                                       <ListView id="futureReturns" fx:id="futureReturns" layoutY="18.0" prefHeight="259.0" prefWidth="450.0" />
+                                       <Label layoutX="172.0" prefHeight="17.0" prefWidth="106.0" text="Najbliższe zwroty :" />
+                                    </children></Pane>
+                                 <Pane prefHeight="148.0" prefWidth="454.0">
+                                     <children>
+                                         <ListView id="pastReturns" fx:id="pastReturns" layoutY="18.0" prefHeight="128.0" prefWidth="450.0" />
+                                         <Label layoutX="174.0" prefHeight="17.0" prefWidth="106.0" text="Zaległe zwroty :" />
+                                     </children></Pane>
+                              </children>
+                           </VBox>
+                        </children>
+                     </Pane>
+                     <Pane prefHeight="301.0" prefWidth="300.0">
+                        <children>
+                           <DatePicker id="dateRentPicker" fx:id="dateRentPicker" layoutX="15.0" layoutY="36.0" />
+                           <ListView id="dateReturns" fx:id="dateReturns" layoutX="14.0" layoutY="69.0" prefHeight="231.0" prefWidth="300.0" />
+                           <Label layoutX="15.0" layoutY="14.0" text="Zwroty dla konretnej daty" />
+                        </children>
+                     </Pane>
+                  </children></HBox>
+            </Tab>
+          <Tab text="Książki">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="800.0">
+                      <ListView id="books" fx:id="books" editable="true" prefHeight="300.0" prefWidth="600.0" />
+                     <Button fx:id="addBook" layoutX="610.0" layoutY="14.0" mnemonicParsing="false" onAction="#addBook" prefHeight="29.0" prefWidth="137.0" text="Dodaj Książkę" />
+                     <Button fx:id="archiveBook" layoutX="610.0" layoutY="50.0" mnemonicParsing="false" onAction="#archiveBook" prefHeight="29.0" prefWidth="137.0" text="Archiwizuj" />
+                      <Button fx:id="filterBooks" layoutX="610.0" layoutY="86.0" mnemonicParsing="false" onAction="#filterBooks" prefHeight="29.0" prefWidth="137.0" text="Filtrowanie" />
+                  </AnchorPane>
+              </content>
+          </Tab>
+          <Tab text="Klienci">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <ListView id="clients" fx:id="clients" editable="true" prefHeight="300.0" prefWidth="600.0" />
+                    <Button fx:id="addClient" layoutX="610.0" layoutY="14.0" mnemonicParsing="false" onAction="#addClient" prefHeight="28.0" prefWidth="137.0" text="Zarejstruj klienta" />
+                </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Wypozyczenia">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="309.0" prefWidth="776.0">
+                     <Button fx:id="returnRent" layoutX="610.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnRent" prefHeight="29.0" prefWidth="137.0" text="Zwrot wypożyczenia" />
+                        <Button fx:id="filterRents" layoutX="610.0" layoutY="50.0" mnemonicParsing="false" onAction="#filterRents" prefHeight="29.0" prefWidth="137.0" text="Filtrowanie" />
+                     <TabPane layoutY="-5.0" prefHeight="320.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                       <tabs>
+                         <Tab text="Aktualne">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="200.0">
+                               <ListView id="rents" fx:id="activeRents" editable="true" prefHeight="270.0" prefWidth="600.0" />
+                             </AnchorPane>
+                           </content>
+                         </Tab>
+                         <Tab text="Archiwizowane">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <ListView id="rents" fx:id="archiveRents" editable="true" prefHeight="270.0" prefWidth="600.0" />
+                             </AnchorPane></content>
+                         </Tab>
+                       </tabs>
+                     </TabPane>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+       <Button fx:id="closeButton" layoutX="675.0" layoutY="347.0" mnemonicParsing="false" onAction="#exit" prefHeight="22.0" prefWidth="76.0" text="Wyjście" />
+         <Button fx:id="addRent" layoutX="20.0" layoutY="346.0" mnemonicParsing="false" onAction="#addRent" prefHeight="28.0" prefWidth="95.0" text="Wypożyczenie" />
+      <Button layoutX="562.0" layoutY="347.0" mnemonicParsing="false" onAction="#showAboutPopup" text="O programie" />
+      <Button layoutX="395.0" layoutY="347.0" mnemonicParsing="false" onAction="#exportToXML" text="Export Danych do XML" />
+      <Button layoutX="290.0" layoutY="347.0" mnemonicParsing="false" onAction="#pickIcon" text="Wybór ikony" />
+   </children>
+</Pane>
