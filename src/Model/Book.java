@@ -21,11 +21,11 @@ public class Book implements Comparable<Book>{
         this.width = width;
         this.height = height;
         this.price = price;
-        if (title == null || title == "") {
+        if (title == null || title.equals("")) {
             throw new IllegalArgumentException("Title Cannot be null");
         }
         this.title = title;
-        if (author == null || author == "") {
+        if (author == null || author.equals("")) {
             throw new IllegalArgumentException("Author Cannot be null");
         }
         this.author = author;
@@ -48,7 +48,7 @@ public class Book implements Comparable<Book>{
             this.author = "Anonymous author";
         }
     }
-
+    public void setId(int id) {bookId=id;}
     public int getPages() {
         return pages;
     }

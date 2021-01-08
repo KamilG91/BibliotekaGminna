@@ -4,6 +4,7 @@ import Model.Book;
 import Service.DAO.EndpointAccessor;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,9 +27,8 @@ public class CommonBookApiCalls {
      */
     public static List<Book> getAllBooks() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<Book> list = mapper.readValue(EndpointAccessor.executeAPICallGet("/api/Books").body().string(),
+        return  mapper.readValue(EndpointAccessor.executeAPICallGet("/api/Books").body().string(),
                 new TypeReference<ArrayList<Book>>() {});
-        return list;
     }
 
     /**
@@ -39,14 +39,13 @@ public class CommonBookApiCalls {
      */
     public static List<Book> getFilteredBooks(String titleFilter, String authorFilter) throws IOException {
         String urlPart = "/api/Books/getFilteredBooks";
-        if (titleFilter != "" && authorFilter !="" ) urlPart = urlPart + "?title=" + titleFilter + "&authorFilter=" + authorFilter;
-        else if (titleFilter != "" && authorFilter =="") urlPart = urlPart + "?title=" + titleFilter;
-        else if (titleFilter =="" && authorFilter != "") urlPart = urlPart + "?authorFilter=" + authorFilter;
+        if (!titleFilter.equals("") && !authorFilter.equals("")) urlPart = urlPart + "?title=" + titleFilter + "&authorFilter=" + authorFilter;
+        else if (!titleFilter.equals("") && authorFilter.equals("")) urlPart = urlPart + "?title=" + titleFilter;
+        else if (titleFilter.equals("") && !authorFilter.equals("")) urlPart = urlPart + "?authorFilter=" + authorFilter;
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Book> list = mapper.readValue(EndpointAccessor.executeAPICallGet(urlPart).body().string(),
+        return mapper.readValue(EndpointAccessor.executeAPICallGet(urlPart).body().string(),
                 new TypeReference<ArrayList<Book>>() {});
-        return list;
     }
 
     /**
@@ -59,10 +58,15 @@ public class CommonBookApiCalls {
      * @param author of new Book
      * @param rented of new Book
      */
-    public static void addNewBook(int pages, double width, double height, double price, String title, String author, int rented) {
+    public static Integer addNewBook(int pages, double width, double height, double price, String title, String author, int rented) throws IOException {
+        Integer newId =999;
         String urlPart = "/api/Books";
         String jsonBook = "{\"pages\": " + pages + ",\"width\": " + width + ",\"height\": \"" + height + "\",\"price\": \"" + price + "\",\"title\": \"" + title + "\",\"author\": \"" + author + "\",\"rented\": " + rented + "}";
-        EndpointAccessor.executeAPICallPost(urlPart, jsonBook);
+        final ObjectNode node = new ObjectMapper().readValue(EndpointAccessor.executeAPICallPost( urlPart, jsonBook).body().string(), ObjectNode.class);
+        if (node.has("bookId")) {
+            newId = node.get("bookId").asInt();
+        }
+        return newId;
     }
 
     /**

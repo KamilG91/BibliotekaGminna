@@ -5,7 +5,6 @@ import Model.Book;
 import Model.Client;
 import Model.Rent;
 import Service.DAO.EndpointAccessor;
-import Service.DBUtils.CommonBookApiCalls;
 import Service.Library;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -209,7 +208,12 @@ public class MainPageController implements Initializable {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
-                EndpointAccessor.Authenticate(user.getText(), password.getText());
+                if (EndpointAccessor.Authenticate(user.getText(), password.getText())) {}
+                else {
+                    wrongLoginData();
+                    System.exit(0);
+                }
+
                 return null;
             }
             return null;
@@ -244,15 +248,22 @@ public class MainPageController implements Initializable {
     /**
      * Shows "About" information popup with info about used components and authors of this application
      */
-    public void showAboutPopup() {
+    public void showAboutPopup() throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("O programie");
-        alert.setHeaderText("Program korzysta z jarów : \njdbc SQLLite, pakietu JavaFX, XStream\n Twórcy : \nKamil Gawot oraz Tomasz Zych");
+        alert.setTitle("Wszyscy użytkownicy");
+        alert.setHeaderText(EndpointAccessor.executeAPICallGet("/Users").body().string());
         ButtonType btnOK = new ButtonType("OK");
         alert.getButtonTypes().setAll(btnOK);
         alert.showAndWait();
     }
-
+    public void wrongLoginData() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Zły login i/lub hasło!");
+        alert.setHeaderText("Zły login i hasło! \n Program się zakończy.");
+        ButtonType btnOK = new ButtonType("OK");
+        alert.getButtonTypes().setAll(btnOK);
+        alert.showAndWait();
+    }
     /**
      * Export of all data ( rents , books, clients ) to xml file
      */
@@ -371,10 +382,9 @@ public class MainPageController implements Initializable {
         );
 
 
-        int finalNextBookID = CommonBookApiCalls.getLastBookID() + 1;
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
-                return new Book(finalNextBookID,
+                return new Book(0,
                         Integer.valueOf(pages.getText())
                         , Double.valueOf(width.getText())
                         , Double.valueOf(height.getText())
@@ -389,8 +399,12 @@ public class MainPageController implements Initializable {
         Optional<Book> result = dialog.showAndWait();
 
         result.ifPresent(book -> {
+            try {
+                library.addBookToLibrary(book);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             booksList.add(book.toString());
-            library.addBookToLibrary(book);
         });
     }
 

@@ -84,7 +84,7 @@
       </TabPane>
        <Button fx:id="closeButton" layoutX="675.0" layoutY="347.0" mnemonicParsing="false" onAction="#exit" prefHeight="22.0" prefWidth="76.0" text="Wyjście" />
          <Button fx:id="addRent" layoutX="20.0" layoutY="346.0" mnemonicParsing="false" onAction="#addRent" prefHeight="28.0" prefWidth="95.0" text="Wypożyczenie" />
-      <Button layoutX="562.0" layoutY="347.0" mnemonicParsing="false" onAction="#showAboutPopup" text="O programie" />
+      <Button layoutX="562.0" layoutY="347.0" mnemonicParsing="false" onAction="#showAboutPopup" text="Użytkownicy" />
       <Button layoutX="395.0" layoutY="347.0" mnemonicParsing="false" onAction="#exportToXML" text="Export Danych do XML" />
       <Button layoutX="290.0" layoutY="347.0" mnemonicParsing="false" onAction="#pickIcon" text="Wybór ikony" />
    </children>

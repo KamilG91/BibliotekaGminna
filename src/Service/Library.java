@@ -107,9 +107,9 @@ public class Library {
      *
      * @param book to be added to DB and local liibrary service data
      */
-    public void addBookToLibrary(Book book) {
+    public void addBookToLibrary(Book book) throws IOException {
+        book.setId(CommonBookApiCalls.addNewBook(book.getPages(), book.getWidth(), book.getHeight(), book.getPrice(), book.getTitle(), book.getAuthor(), book.getRented()));
         booksOnStock.add(book);
-        CommonBookApiCalls.addNewBook(book.getPages(), book.getWidth(), book.getHeight(), book.getPrice(), book.getTitle(), book.getAuthor(), book.getRented());
     }
 
     /**
